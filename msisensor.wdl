@@ -44,6 +44,8 @@ task msisensor {
 		File tumorbam 
 		String basename = basename("~{tumorbam}", ".bam")
 		String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
+		String msifile = "${MSISENSOR_MICROSATLIST_ROOT}/hg38_random.fa.list"
+		String? difficultRegions
 		Int jobMemory = 5
 		Int threads = 10
 		Int timeout = 10
@@ -54,6 +56,8 @@ task msisensor {
 		tumorbam: "tumor input .bam file"
 		basename: "Base name"
 		modules: "Required environment modules"
+		msifile: "list of microsats identified by msisensor-scan"
+		difficultRegions: "bed file of regions to avoid, if necessary"
 		jobMemory: "Memory allocated for this job (GB)"
 		threads: "Requested CPU threads"
 		timeout: "Hours before task timeout"
@@ -63,11 +67,10 @@ task msisensor {
 		set -euo pipefail
 
 		msisensor-pro msi \
-			-d ${msisensor-microsatlist-home}/hg38_random.fa.list \
+			-d ~{msifile} \
 			-n ~{normalbam} -t ~{tumorbam} \
 			-o ~{basename}.msi \
-			-b ~{threads} \
-			-e ~{Bed}
+			-b ~{threads} 
 
 	>>>
 
