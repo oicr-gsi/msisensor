@@ -3,19 +3,25 @@ version 1.0
 workflow msisensor {
 	input {
 		File normalbam
+		File normalbai
 		File tumorbam
+		File tumorbai
 		String basename = basename("~{tumorbam}", ".bam")
 	}
 
 	parameter_meta {
 		normalbam: "normal input .bam file"
+		normalbam: "normal input .bai file"
 		tumorbam: "tumor input .bam file"
+		tumorbam: "tumor input .bai file"
 	}
 
 	call msisensor {
 		input: 
 			normalbam = normalbam,
-			tumorbam = tumorbam
+			tumorbam = tumorbam,
+			normalbai = normalbai,
+			tumorbai = tumorbai
 	}
 
 	meta {
@@ -41,19 +47,23 @@ workflow msisensor {
 task msisensor {
 	input {
 		File normalbam 
-		File tumorbam 
+		File tumorbam
+		File normalbai 
+		File tumorbai 
 		String basename = basename("~{tumorbam}", ".bam")
 		String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
-		String msifile = "${MSISENSOR_MICROSATLIST_ROOT}/hg38_random.fa.list"
+		String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
 		String? difficultRegions
-		Int jobMemory = 5
-		Int threads = 10
+		Int jobMemory = 64
+		Int threads = 1
 		Int timeout = 10
 	}
 
 	parameter_meta {
 		normalbam: "normal input .bam file"
 		tumorbam: "tumor input .bam file"
+		normalbai: "normal input .bai file"
+		tumorbai: "tumor input .bai file"
 		basename: "Base name"
 		modules: "Required environment modules"
 		msifile: "list of microsats identified by msisensor-scan"
@@ -90,8 +100,8 @@ task msisensor {
 
 	meta {
 		output_meta: {
-			msiGermline: "MSI calls for germline"
-			msiSomatic: "MSI calls for soma"
+			msiGermline: "MSI calls for germline",
+			msiSomatic: "MSI calls for soma",
 			msiDistribution: "MSI distribution per site for normal and tumor",
 			msiFinalOutput: "Final msisensor call as .tsv, last column is msi score"
 		}
