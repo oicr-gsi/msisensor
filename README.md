@@ -63,7 +63,10 @@ Output | Type | Description
  			-d ~{msifile} \
  			-n ~{normalbam} -t ~{tumorbam} \
  			-o ~{basename}.msi \
- 			-b ~{threads}  ## Support
+ 			-b ~{threads}  
+
+
+## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
