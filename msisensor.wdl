@@ -56,7 +56,7 @@ task runMSIsensor {
 		String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
 		String? difficultRegions
 		Int jobMemory = 64
-		Int threads = 1
+		Int threads = 4
 		Int timeout = 10
 	}
 
@@ -80,8 +80,7 @@ task runMSIsensor {
 		msisensor-pro msi \
 			-d ~{msifile} \
 			-n ~{normalbam} -t ~{tumorbam} \
-			-o ~{basename}.msi \
-			-b ~{threads} 
+			-o ~{basename}.msi 
 
 	>>>
 
