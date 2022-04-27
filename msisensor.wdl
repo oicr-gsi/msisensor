@@ -11,12 +11,13 @@ workflow msisensor {
 
 	parameter_meta {
 		normalbam: "normal input .bam file"
-		normalbam: "normal input .bai file"
+		normalbai: "normal input .bai file"
 		tumorbam: "tumor input .bam file"
-		tumorbam: "tumor input .bai file"
+		tumorbai: "tumor input .bai file"
+		basename: "Base name"
 	}
 
-	call msisensor {
+	call runMSIsensor {
 		input: 
 			normalbam = normalbam,
 			tumorbam = tumorbam,
@@ -44,7 +45,7 @@ workflow msisensor {
 	}
 }
 
-task msisensor {
+task runMSIsensor {
 	input {
 		File normalbam 
 		File tumorbam
