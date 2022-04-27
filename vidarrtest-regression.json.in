@@ -1,9 +1,9 @@
 [
     {
         "arguments": {
-            "sigTooler.smallsVcfFile": {
+            "msisensor.tumorbai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/sigTooler/1.0/input_data/PANX_1309_Lv_M_WG_100-PM-033_LCM4.filter.deduped.realigned.recalibrated.mutect2.filtered.vcf.gz",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -13,9 +13,9 @@
                 },
                 "type": "EXTERNAL"
             },
-            "sigTooler.smallsVcfIndex": {
+            "msisensor.tumorbam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/sigTooler/1.0/input_data/PANX_1309_Lv_M_WG_100-PM-033_LCM4.filter.deduped.realigned.recalibrated.mutect2.filtered.vcf.gz.tbi",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -25,9 +25,9 @@
                 },
                 "type": "EXTERNAL"
             },
-            "sigTooler.segFile": {
+            "msisensor.normalbai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/sigTooler/1.0/input_data/PANX_1309_Lv_M_WG_100-PM-033_LCM4_segments.txt",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -37,9 +37,9 @@
                 },
                 "type": "EXTERNAL"
             },
-            "sigTooler.structuralVcfFile": {
+            "msisensor.normalbam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/sigTooler/1.0/input_data/PANX_1309_Lv_M_WG_100-PM-033_LCM4_somatic.somatic_filtered.delly.merged.vcf.gz",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -48,43 +48,19 @@
                     ]
                 },
                 "type": "EXTERNAL"
-            },
-            "sigTooler.rScript": "/.mounts/labs/CGI/scratch/fbeaudry/sigtools_workflow/sigTools",
-            "sigTooler.snvVAF": "05",
-            "sigTooler.indelVAF": "05",
-            "sigTooler.tissue": "Pancreas",
-            "sigTooler.plotIt":"FALSE",
-            "sigTooler.filterSNVs.difficultRegions": "--exclude-intervals $GRCH38_ALLDIFFICULTREGIONS_ROOT/GRCh38_alldifficultregions.bed",
-            "sigTooler.filterINDELs.difficultRegions":"--exclude-intervals $GRCH38_ALLDIFFICULTREGIONS_ROOT/GRCh38_alldifficultregions.bed",
-            "sigTooler.sampleName": "PANX_1309"
+            }
         },
-        "description": "sigTooler workflow test",
+        "description": "msisensor workflow test",
         "engineArguments": {
           "write_to_cache": false,
           "read_from_cache": false
         },
-        "id": "PANX_1309Test",
+        "id": "PANX_1248Test",
         "metadata": {
-            "sigTooler.sigTools_hrd_Output": {
+            "msisensor.msiFinalOutput": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_sigTooler_PANX_1309Test_@JENKINSID@"
-                    }
-                ],
-                "type": "ALL"
-            },
-            "sigTooler.sigTools_model_Output": {
-                "contents": [
-                    {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_sigTooler_PANX_1309Test_@JENKINSID@"
-                    }
-                ],
-                "type": "ALL"
-            },
-            "sigTooler.sigTools_sigs_Output": {
-                "contents": [
-                    {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_sigTooler_PANX_1309Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -94,7 +70,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/sigTooler/1.0/output_metrics/PANX_1309Test.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/PANX_1248Test.metrics",
                 "type": "script"
             }
         ]

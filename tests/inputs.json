@@ -1,7 +1,6 @@
 {
-  "msisensor.normalbam": "/.mounts/labs/CGI/scratch/fbeaudry/msi_test/BTC_0013_Ly_R_WG_HPB-199_BC.filter.deduped.realigned.recalibrated.bam",
-  "msisensor.normalbai": "/.mounts/labs/CGI/scratch/fbeaudry/msi_test/BTC_0013_Ly_R_WG_HPB-199_BC.filter.deduped.realigned.recalibrated.bai",
-  "msisensor.tumorbam": "/.mounts/labs/CGI/scratch/fbeaudry/msi_test/BTC_0013_Lv_P_WG_HPB-199_LCM.filter.deduped.realigned.recalibrated.bam",
-  "msisensor.tumorbai": "/.mounts/labs/CGI/scratch/fbeaudry/msi_test/BTC_0013_Lv_P_WG_HPB-199_LCM.filter.deduped.realigned.recalibrated.bai"
+  "msisensor.tumorbai": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.bai",
+  "msisensor.tumorbam": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.bam",
+  "msisensor.normalbai": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.bai",
+  "msisensor.normalbam": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.bam"
 }
-

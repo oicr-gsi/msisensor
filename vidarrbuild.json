@@ -1,6 +1,6 @@
 {
     "names": [
-        "sigTooler"
+        "msisensor"
     ],
-    "wdl": "sigTooler.wdl"
+    "wdl": "msisensor.wdl"
 }
