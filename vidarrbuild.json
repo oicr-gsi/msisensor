@@ -1,0 +1,6 @@
+{
+    "names": [
+        "msisensor"
+    ],
+    "wdl": "msisensor.wdl"
+}
