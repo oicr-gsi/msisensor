@@ -46,7 +46,7 @@ workflow msisensor {
 
 		call gather_boots {
 			input:
-				msiFinalOutputs = select_all(boot_MSIsensor.msiFinalOutput),
+				msiFinalOutputs = select_all(boot_MSIsensor.msiFinalOutput)
 		}
 	}
 
@@ -120,7 +120,7 @@ task runMSIsensor {
 		File msiGermline = "~{basename}.msi_germline"
 		File msiSomatic = "~{basename}.msi_somatic"
 		File msiDistribution = "~{basename}.msi_dis"
-		File msiFinalOutput = "~{basename}.msi"
+		File? msiFinalOutput = "~{basename}.msi"
 	}
 
 	meta {
@@ -136,7 +136,6 @@ task runMSIsensor {
 task make_boots {
 	input {
 		Int loci = 5000
-		String basename = basename("~{tumorbam}", ".bam")
 		String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
 		String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
 		Int jobMemory = 64
@@ -145,14 +144,9 @@ task make_boots {
 	}
 
 	parameter_meta {
-		normalbam: "normal input .bam file"
-		tumorbam: "tumor input .bam file"
-		normalbai: "normal input .bai file"
-		tumorbai: "tumor input .bai file"
-		basename: "Base name"
+		loci: "number of loci to include in each bootstrap"
 		modules: "Required environment modules"
 		msifile: "list of microsats identified by msisensor-scan"
-		difficultRegions: "bed file of regions to avoid, if necessary"
 		jobMemory: "Memory allocated for this job (GB)"
 		threads: "Requested CPU threads"
 		timeout: "Hours before task timeout"
@@ -203,7 +197,7 @@ task make_boot_interval {
 		python <<CODE
 		import os, re
 
-		for boot in range(bootstraps):
+		for boot in range(~{bootstraps}):
 			print(boot)
 		CODE
 	>>>
@@ -214,7 +208,7 @@ task make_boot_interval {
 	}
 
 	output {
-		Array[String] boot_interval = stdout())
+		Array[Array[String]] boot_interval = read_tsv(stdout())
 	}
 }
 
@@ -245,7 +239,7 @@ task gather_boots {
 	}
 
 	output {
-		Array[String] boot_interval = stdout())
+		File booted_msi = "msiFinalOutput.booted.txt"
 	}
 }
 
