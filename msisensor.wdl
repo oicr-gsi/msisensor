@@ -18,7 +18,7 @@ workflow msisensor {
 		basename: "Base name"
 	}
 
-	call runMSIsensor as WG_MSIsensor {
+	call runMSIsensor {
 		input: 
 			normalbam = normalbam,
 			tumorbam = tumorbam,
@@ -27,27 +27,15 @@ workflow msisensor {
 	}
 
 	if(boostrapIt == true){
-		call make_boot_interval{}
 
-		scatter ( boot in make_boot_interval.boot_interval ) {
-
-			call make_boots {}
-
-			call runMSIsensor as boot_MSIsensor {
-				input: 
-					normalbam = normalbam,
-					tumorbam = tumorbam,
-					normalbai = normalbai,
-					tumorbai = tumorbai,
-					msifile = make_boots.msilist_boot
-			}
-
-		}
-
-		call gather_boots {
+		call bootstrapMSIsensor {
 			input:
-				msiFinalOutputs = select_all(boot_MSIsensor.msiFinalOutput)
+				normalbam = normalbam,
+				tumorbam = tumorbam,
+				normalbai = normalbai,
+				tumorbai = tumorbai
 		}
+
 	}
 
 	meta {
@@ -62,11 +50,13 @@ workflow msisensor {
 			}
 		]
 		output_meta: {
-			msiFinalOutput: "Final msisensor call as .tsv, last column is msi score"
+			msiFinalOutput: "Final msisensor call as .tsv, last column is msi score",
+			msibooted: "msisensor calls bootstrapped"
 		}
 	}
 	output {
 		File msiFinalOutput = "~{basename}.msi"
+		File msibooted = "~{basename}.msi.booted"
 	}
 }
 
@@ -93,17 +83,17 @@ task runMSIsensor {
 		basename: "Base name"
 		modules: "Required environment modules"
 		msifile: "list of microsats identified by msisensor-scan"
-		difficultRegions: "bed file of regions to avoid, if necessary"
 		jobMemory: "Memory allocated for this job (GB)"
 		threads: "Requested CPU threads"
 		timeout: "Hours before task timeout"
+		difficultRegions: "Path to .bed of difficult regions to exclude, string must include the flag -e "
 	}
 
 	command <<<
 		set -euo pipefail
 
 		msisensor-pro msi \
-			-d ~{msifile} \
+			-d ~{msifile} ~{difficultRegions} \
 			-n ~{normalbam} -t ~{tumorbam} \
 			-o ~{basename}.msi 
 
@@ -133,32 +123,58 @@ task runMSIsensor {
 	}
 }
 
-task make_boots {
+task bootstrapMSIsensor {
 	input {
-		Int loci = 5000
+		Int boots = 100
+		Int loci = 500
+		File normalbam 
+		File tumorbam
+		File normalbai 
+		File tumorbai 
+		String basename = basename("~{tumorbam}", ".bam")
 		String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
 		String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
+		String? difficultRegions
 		Int jobMemory = 64
 		Int threads = 4
 		Int timeout = 10
+		String? difficultRegions
 	}
 
 	parameter_meta {
+		boots: "number of bootstraps"
 		loci: "number of loci to include in each bootstrap"
+		normalbam: "normal input .bam file"
+		tumorbam: "tumor input .bam file"
+		normalbai: "normal input .bai file"
+		tumorbai: "tumor input .bai file"
+		basename: "Base name"
 		modules: "Required environment modules"
 		msifile: "list of microsats identified by msisensor-scan"
+		difficultRegions: "bed file of regions to avoid, if necessary"
 		jobMemory: "Memory allocated for this job (GB)"
 		threads: "Requested CPU threads"
 		timeout: "Hours before task timeout"
+		difficultRegions: "Path to .bed of difficult regions to exclude, string must include the flag -e "
 	}
 
 	command <<<
 		set -euo pipefail
 
-		shuf -n ~{loci} ~{msifile} >rep.list
+		for boot in {1..~{boots}}
+		do
+			shuf -n ~{loci} ~{msifile} >rep.list
 
-		sort -k1,1 -k2,2n rep.list >rep.list.sorted
+			sort -k1,1 -k2,2n rep.list >rep.list.sorted
 
+			msisensor-pro msi \
+				-d rep.list.sorted ~{difficultRegions} \
+				-n ~{normalbam} -t ~{tumorbam} \
+				-o ~{basename}.msi
+
+			awk -v boot="${boot}" '$1 !~ "Total_Number_of_Sites" {print boot"\t"$1"\t"$2"\t"$3}' ~{basename}.msi >>~{basename}.msi.booted
+
+		done
 
 	>>>
 
@@ -170,76 +186,13 @@ task make_boots {
 	}
 
 	output {
-		File msilist_boot = "rep.list.sorted"
+		File msibooted = "~{basename}.msi.booted"
 	}
 
 	meta {
 		output_meta: {
-			msilist_boot: "random subset of MSI sites"
+			msibooted: "MSI calls for germline, bootstrapped"
 		}
-	}
-}
-
-task make_boot_interval {
-	input {
-		String bootstraps = 1000
-		Int jobMemory = 4
-		Int timeout = 12
-	}
-
-	parameter_meta {
-		bootstraps: "number of bootstraps"
-		jobMemory: "Memory for this task in GB"
-		timeout: "Timeout in hours, needed to override imposed limits"
-	}
-
-	command <<<
-		python <<CODE
-		import os, re
-
-		for boot in range(~{bootstraps}):
-			print(boot)
-		CODE
-	>>>
-
-	runtime {
-		memory:  "~{jobMemory} GB"
-		timeout: "~{timeout}"
-	}
-
-	output {
-		Array[Array[String]] boot_interval = read_tsv(stdout())
-	}
-}
-
-task gather_boots {
-	input {
-		Array[File] msiFinalOutputs
-		Int jobMemory = 4
-		Int timeout = 12
-	}
-
-	parameter_meta {
-		msiFinalOutputs: "msiFinalOutput files from bootstraps"
-		jobMemory: "Memory for this task in GB"
-		timeout: "Timeout in hours, needed to override imposed limits"
-	}
-
-	command <<<
-		set -euo pipefail
-
-		cat ~{sep=' ' msiFinalOutputs} >msiFinalOutput.booted.txt
-
-
-	>>>
-
-	runtime {
-		memory:  "~{jobMemory} GB"
-		timeout: "~{timeout}"
-	}
-
-	output {
-		File booted_msi = "msiFinalOutput.booted.txt"
 	}
 }
 
