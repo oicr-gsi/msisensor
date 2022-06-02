@@ -48,7 +48,8 @@
                     ]
                 },
                 "type": "EXTERNAL"
-            }
+            },
+            "msisensor.boostrapIt": "false"
         },
         "description": "msisensor workflow test",
         "engineArguments": {
