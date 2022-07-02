@@ -59,12 +59,15 @@ Parameter|Value|Default|Description
 
 Output | Type | Description
 ---|---|---
+`msiGermline`|File|A poorly documented output, ostensibly germline-specific metrics for MSI sites
+`msiSomatic`|File|A poorly documented output, ostensibly somatic-specific metrics for MSI sites
 `msiFinalOutput`|File|Final msisensor call as .tsv, last column is msi score
-`msibooted`|File|msisensor calls bootstrapped
+`msibooted`|File?|msisensor calls bootstrapped
 
 
 ## Commands
- This section lists the core command run by the msisensor workflow
+ 
+ This section lists command(s) run by msisensor workflow
  
  * Running msisensor
  
@@ -76,7 +79,7 @@ Output | Type | Description
  
  Run msisensor-pro (the main step)
  
- '''
+ ```
   set -euo pipefail
  
   msisensor-pro msi
@@ -86,11 +89,11 @@ Output | Type | Description
     -t TUMOR_BAM
     -o BASENAME.msi 
  
- '''
+ ```
  
  Optional bootstrapping with the same inputs:
  
- '''
+ ```
   set -euo pipefail
  
   for boot in {1..~{boots}}
@@ -109,7 +112,7 @@ Output | Type | Description
   awk -v boot="${boot}" '$1 !~ "Total_Number_of_Sites" {print boot"\t"$1"\t"$2"\t"$3}' ~{basename}.msi >> ~{basename}.msi.booted
   done
  
- '''
+ ```
  
  ## Support
 

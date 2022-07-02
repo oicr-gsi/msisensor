@@ -12,7 +12,7 @@ and a discriminative sites selection method to enable MSI detection without matc
 
 Run msisensor-pro (the main step)
 
-'''
+```
  set -euo pipefail
 
  msisensor-pro msi
@@ -22,11 +22,11 @@ Run msisensor-pro (the main step)
    -t TUMOR_BAM
    -o BASENAME.msi 
 
-'''
+```
 
 Optional bootstrapping with the same inputs:
 
-'''
+```
  set -euo pipefail
 
  for boot in {1..~{boots}}
@@ -45,5 +45,5 @@ Optional bootstrapping with the same inputs:
  awk -v boot="${boot}" '$1 !~ "Total_Number_of_Sites" {print boot"\t"$1"\t"$2"\t"$3}' ~{basename}.msi >> ~{basename}.msi.booted
  done
 
-'''
+```
 
