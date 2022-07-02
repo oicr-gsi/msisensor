@@ -49,7 +49,25 @@
                 },
                 "type": "EXTERNAL"
             },
-            "msisensor.boostrapIt": "false"
+            "msisensor.boostrapIt": "false",
+            "msisensor.outputFileNamePrefix": null,
+            "msisensor.bootstrapMSIsensor.loci": null,
+            "msisensor.bootstrapMSIsensor.jobMemory": null,
+            "msisensor.bootstrapMSIsensor.outputFileNamePrefix": null,
+            "msisensor.runMSIsensor.outputFileNamePrefix": null,
+            "msisensor.bootstrapMSIsensor.difficultRegions": null,
+            "msisensor.runMSIsensor.difficultRegions": null,
+            "msisensor.bootstrapMSIsensor.msifile": null,
+            "msisensor.runMSIsensor.jobMemory": null,
+            "msisensor.bootstrapMSIsensor.boots": null,
+            "msisensor.runMSIsensor.threads": null,
+            "msisensor.outputFileNamePrefix": null,
+            "msisensor.runMSIsensor.msifile": null,
+            "msisensor.runMSIsensor.timeout": null,
+            "msisensor.runMSIsensor.modules": null,
+            "msisensor.bootstrapMSIsensor.threads": null,
+            "msisensor.bootstrapMSIsensor.timeout": null,
+            "msisensor.bootstrapMSIsensor.modules": null
         },
         "description": "msisensor workflow test",
         "engineArguments": {
@@ -59,6 +77,30 @@
         "id": "PANX_1248Test",
         "metadata": {
             "msisensor.msiFinalOutput": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msiGermline": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msiSomatic": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msibooted": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
@@ -126,7 +168,25 @@
                 },
                 "type": "EXTERNAL"
             },
-            "msisensor.boostrapIt": "true"
+            "msisensor.boostrapIt": "true",
+            "msisensor.outputFileNamePrefix": null,
+            "msisensor.bootstrapMSIsensor.loci": null,
+            "msisensor.bootstrapMSIsensor.jobMemory": null,
+            "msisensor.bootstrapMSIsensor.outputFileNamePrefix": null,
+            "msisensor.runMSIsensor.outputFileNamePrefix": null,
+            "msisensor.bootstrapMSIsensor.difficultRegions": null,
+            "msisensor.runMSIsensor.difficultRegions": null,
+            "msisensor.bootstrapMSIsensor.msifile": null,
+            "msisensor.runMSIsensor.jobMemory": null,
+            "msisensor.bootstrapMSIsensor.boots": null,
+            "msisensor.runMSIsensor.threads": null,
+            "msisensor.outputFileNamePrefix": null,
+            "msisensor.runMSIsensor.msifile": null,
+            "msisensor.runMSIsensor.timeout": null,
+            "msisensor.runMSIsensor.modules": null,
+            "msisensor.bootstrapMSIsensor.threads": null,
+            "msisensor.bootstrapMSIsensor.timeout": null,
+            "msisensor.bootstrapMSIsensor.modules": null
         },
         "description": "msisensor workflow test with bootstrapping",
         "engineArguments": {
@@ -136,6 +196,30 @@
         "id": "PANX_1248_BootstrapTest",
         "metadata": {
             "msisensor.msiFinalOutput": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msiGermline": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msiSomatic": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msibooted": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
