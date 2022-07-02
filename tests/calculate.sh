@@ -5,5 +5,5 @@ set -o pipefail
 
 cd $1
 
-find . -regex '.*\.msi$' -exec md5sum {} \;
+find . -regex '.*\.msi.*' | grep -v _dis | xargs md5sum \;
 
