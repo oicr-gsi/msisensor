@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.1.0 - 2022-11-30
+- added header filtering step in bootstrapping mode of wdl
+
 ## 1.0.0 - 2022-07-01
 - additional outputs, modifications to wdl and README, additional regression test, downsampled inputs
 
