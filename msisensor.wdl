@@ -168,7 +168,8 @@ task bootstrapMSIsensor {
     do
       shuf -n ~{loci} ~{msifile} >rep.list
 
-      sort -k1,1 -k2,2n rep.list >rep.list.sorted
+      awk '$2 !~ "location" {print}' rep.list | \
+        sort -k1,1 -k2,2n >rep.list.sorted
 
       msisensor-pro msi \
        -d rep.list.sorted ~{"-e " + difficultRegions} \
