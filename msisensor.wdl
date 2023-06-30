@@ -1,5 +1,10 @@
 version 1.0
 
+struct GenomeResources {
+  String msifile
+  String modules
+}
+
 workflow msisensor {
   input {
     File normalbam
@@ -8,7 +13,15 @@ workflow msisensor {
     File tumorbai
     String outputFileNamePrefix = basename("~{tumorbam}", ".bam")
     Boolean boostrapIt
+    String reference
   }
+
+Map[String, GenomeResources] resources = {
+  "hg38": {
+    "msifile": "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list", 
+    "modules": "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
+  }
+}
 
   parameter_meta {
     normalbam: "normal input .bam file"
@@ -17,6 +30,7 @@ workflow msisensor {
     tumorbai: "tumor input .bai file"
     outputFileNamePrefix: "Base name"
     boostrapIt: "Enable bootstrapping"
+    reference: "reference genome of input sample"
   }
 
   call runMSIsensor {
@@ -24,7 +38,9 @@ workflow msisensor {
       normalbam = normalbam,
       tumorbam = tumorbam,
       normalbai = normalbai,
-      tumorbai = tumorbai
+      tumorbai = tumorbai,
+      msifile = resources[reference].msifile,
+      modules = resources[reference].modules
   }
 
   if(boostrapIt == true){
@@ -33,7 +49,9 @@ workflow msisensor {
 	normalbam = normalbam,
 	tumorbam = tumorbam,
 	normalbai = normalbai,
-	tumorbai = tumorbai
+	tumorbai = tumorbai,
+  msifile = resources[reference].msifile,
+  modules = resources[reference].modules
    }
 
   }

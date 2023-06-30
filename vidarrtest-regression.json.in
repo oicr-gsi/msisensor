@@ -50,6 +50,7 @@
                 "type": "EXTERNAL"
             },
             "msisensor.boostrapIt": false,
+            "msisensor.reference": "hg38",
             "msisensor.outputFileNamePrefix": null,
             "msisensor.bootstrapMSIsensor.loci": null,
             "msisensor.bootstrapMSIsensor.jobMemory": null,
@@ -61,7 +62,6 @@
             "msisensor.runMSIsensor.jobMemory": null,
             "msisensor.bootstrapMSIsensor.boots": null,
             "msisensor.runMSIsensor.threads": null,
-            "msisensor.outputFileNamePrefix": null,
             "msisensor.runMSIsensor.msifile": null,
             "msisensor.runMSIsensor.timeout": null,
             "msisensor.runMSIsensor.modules": null,
@@ -169,7 +169,7 @@
                 "type": "EXTERNAL"
             },
             "msisensor.boostrapIt": true,
-            "msisensor.outputFileNamePrefix": null,
+            "msisensor.reference": "hg38",
             "msisensor.bootstrapMSIsensor.loci": null,
             "msisensor.bootstrapMSIsensor.jobMemory": null,
             "msisensor.bootstrapMSIsensor.outputFileNamePrefix": null,
