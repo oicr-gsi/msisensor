@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.2.0 - 2023-06-30
+- Moving assembly-dependent code from olive to wdl
+
 ## 1.1.0 - 2022-11-30
 - added header filtering step in bootstrapping mode of wdl
 

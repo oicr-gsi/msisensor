@@ -26,6 +26,7 @@ Parameter|Value|Description
 `tumorbam`|File|tumor input .bam file
 `tumorbai`|File|tumor input .bai file
 `boostrapIt`|Boolean|Enable bootstrapping
+`reference`|String|reference genome of input sample
 
 
 #### Optional workflow parameters:
@@ -38,8 +39,6 @@ Parameter|Value|Default|Description
 Parameter|Value|Default|Description
 ---|---|---|---
 `runMSIsensor.outputFileNamePrefix`|String|basename("~{tumorbam}",".bam")|Base name
-`runMSIsensor.modules`|String|"msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"|Required environment modules
-`runMSIsensor.msifile`|String|"$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"|list of microsats identified by msisensor-scan
 `runMSIsensor.difficultRegions`|String?|None|Path to .bed of difficult regions to exclude
 `runMSIsensor.jobMemory`|Int|64|Memory allocated for this job (GB)
 `runMSIsensor.threads`|Int|4|Requested CPU threads
@@ -47,8 +46,6 @@ Parameter|Value|Default|Description
 `bootstrapMSIsensor.boots`|Int|100|number of bootstraps
 `bootstrapMSIsensor.loci`|Int|500|number of loci to include in each bootstrap
 `bootstrapMSIsensor.outputFileNamePrefix`|String|basename("~{tumorbam}",".bam")|Base name
-`bootstrapMSIsensor.modules`|String|"msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"|Required environment modules
-`bootstrapMSIsensor.msifile`|String|"$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"|list of microsats identified by msisensor-scan
 `bootstrapMSIsensor.jobMemory`|Int|64|Memory allocated for this job (GB)
 `bootstrapMSIsensor.threads`|Int|4|Requested CPU threads
 `bootstrapMSIsensor.timeout`|Int|10|Hours before task timeout
