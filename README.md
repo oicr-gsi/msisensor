@@ -54,29 +54,29 @@ Parameter|Value|Default|Description
 
 ### Outputs
 
-Output | Type | Description
----|---|---
-`msiGermline`|File|A poorly documented output, ostensibly germline-specific metrics for MSI sites
-`msiSomatic`|File|A poorly documented output, ostensibly somatic-specific metrics for MSI sites
-`msiFinalOutput`|File|Final msisensor call as .tsv, last column is msi score
-`msibooted`|File?|msisensor calls bootstrapped
+Output | Type | Description | Labels
+---|---|---|---
+`msiGermline`|File|A poorly documented output, ostensibly germline-specific metrics for MSI sites|vidarr_label: msiGermline
+`msiSomatic`|File|A poorly documented output, ostensibly somatic-specific metrics for MSI sites|vidarr_label: msiSomatic
+`msiFinalOutput`|File|Final msisensor call as .tsv, last column is msi score|vidarr_label: msiFinalOutput
+`msibooted`|File?|msisensor calls bootstrapped|vidarr_label: msibooted
 
 
 ## Commands
  
- This section lists command(s) run by msisensor workflow
+This section lists command(s) run by msisensor workflow
  
- * Running msisensor
+* Running msisensor
  
- Microsatelite Instability (MSI) detection using msisensor-pro. MSIsensor-pro is an updated version of msisensor.
- MSIsensor-pro evaluates Microsatellite Instability (MSI) for cancer patients with NGS data.
- It accepts the whole genome sequencing, whole exome sequencing and target region (panel) sequencing data as input.
- MSIsensor-pro introduces a multinomial distribution model to quantify polymerase slippages for each tumor sample
- and a discriminative sites selection method to enable MSI detection without matched normal samples.
+Microsatelite Instability (MSI) detection using msisensor-pro. MSIsensor-pro is an updated version of msisensor.
+MSIsensor-pro evaluates Microsatellite Instability (MSI) for cancer patients with NGS data.
+It accepts the whole genome sequencing, whole exome sequencing and target region (panel) sequencing data as input.
+MSIsensor-pro introduces a multinomial distribution model to quantify polymerase slippages for each tumor sample
+and a discriminative sites selection method to enable MSI detection without matched normal samples.
  
- Run msisensor-pro (the main step)
+### Run msisensor-pro (the main step)
  
- ```
+```
   set -euo pipefail
  
   msisensor-pro msi
@@ -86,11 +86,11 @@ Output | Type | Description
     -t TUMOR_BAM
     -o BASENAME.msi 
  
- ```
+```
  
- Optional bootstrapping with the same inputs:
+### Optional bootstrapping with the same inputs:
  
- ```
+```
   set -euo pipefail
  
   for boot in {1..~{boots}}
@@ -109,9 +109,9 @@ Output | Type | Description
   awk -v boot="${boot}" '$1 !~ "Total_Number_of_Sites" {print boot"\t"$1"\t"$2"\t"$3}' ~{basename}.msi >> ~{basename}.msi.booted
   done
  
- ```
+```
  
- ## Support
+## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 

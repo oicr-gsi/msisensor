@@ -68,11 +68,23 @@ Map[String, GenomeResources] resources = {
 	}
       ]
     output_meta: {
-      msiFinalOutput: "Final msisensor call as .tsv, last column is msi score",
-      msiGermline: "A poorly documented output, ostensibly germline-specific metrics for MSI sites",
-      msiSomatic: "A poorly documented output, ostensibly somatic-specific metrics for MSI sites",
-      msibooted: "msisensor calls bootstrapped"
+    msiFinalOutput: {
+        description: "Final msisensor call as .tsv, last column is msi score",
+        vidarr_label: "msiFinalOutput"
+    },
+    msiGermline: {
+        description: "A poorly documented output, ostensibly germline-specific metrics for MSI sites",
+        vidarr_label: "msiGermline"
+    },
+    msiSomatic: {
+        description: "A poorly documented output, ostensibly somatic-specific metrics for MSI sites",
+        vidarr_label: "msiSomatic"
+    },
+    msibooted: {
+        description: "msisensor calls bootstrapped",
+        vidarr_label: "msibooted"
     }
+}
   }
   output {
     File msiGermline = runMSIsensor.msiGermline
