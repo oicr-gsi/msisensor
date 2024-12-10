@@ -73,11 +73,11 @@ Map[String, GenomeResources] resources = {
         vidarr_label: "msiFinalOutput"
     },
     msiGermline: {
-        description: "A poorly documented output, ostensibly germline-specific metrics for MSI sites",
+        description: "Describes all microsatelite sites found in the normal bam",
         vidarr_label: "msiGermline"
     },
     msiSomatic: {
-        description: "A poorly documented output, ostensibly somatic-specific metrics for MSI sites",
+        description: "Describes somatic microsatelite sites. A microsatelite is tagged as somatic if the repeat length distribution is found to be different between the tumor and the normal, based on a Pearson's Chi-Squared Test",
         vidarr_label: "msiSomatic"
     },
     msibooted: {
@@ -101,8 +101,8 @@ task runMSIsensor {
     File normalbai 
     File tumorbai 
     String outputFileNamePrefix = basename("~{tumorbam}", ".bam")
-    String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
-    String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
+    String modules
+    String msifile
     String? difficultRegions
     Int jobMemory = 64
     Int threads = 4
@@ -167,8 +167,8 @@ task bootstrapMSIsensor {
     File normalbai 
     File tumorbai 
     String outputFileNamePrefix = basename("~{tumorbam}", ".bam")
-    String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
-    String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
+    String modules
+    String msifile
     Int jobMemory = 64
     Int threads = 4
     Int timeout = 10
