@@ -247,6 +247,8 @@ task summarizeBootstrapResults {
 
   parameter_meta {
     msibooted: "File with bootstrapped results for msisensor, with columns: index, germline microsatelite sites, somatic microsatelite sites, MSI score"
+    outputFileNamePrefix: "output file name prefix"
+    modules: "modules for summarizeBootstrapResults"
     jobMemory: "Memory allocated for this job (GB)"
     threads: "Requested CPU threads"
     timeout: "Hours before task timeout"
