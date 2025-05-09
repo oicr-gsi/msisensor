@@ -285,7 +285,7 @@ task summarizeBootstrapResults {
     }
     percentiles_json = json.dumps(percentiles_dict, indent=4)
 
-    with open("~{outputFileNamePrefix}.msi.bootstrap.metrics.json", 'w') as out_file:
+    with open("~{outputFileNamePrefix}.msi_bootstrap.metrics.json", 'w') as out_file:
       out_file.write(percentiles_json)
 
     CODE
