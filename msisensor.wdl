@@ -299,7 +299,7 @@ task summarizeBootstrapResults {
   }
 
   output {
-    File? bootstrapMetrics = "~{outputFileNamePrefix}_msi.bootstrap.metrics.json"
+    File? bootstrapMetrics = "~{outputFileNamePrefix}.msi_bootstrap.metrics.json"
   }
 
   meta {
