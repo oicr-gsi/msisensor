@@ -67,7 +67,11 @@
             "msisensor.runMSIsensor.modules": null,
             "msisensor.bootstrapMSIsensor.threads": null,
             "msisensor.bootstrapMSIsensor.timeout": null,
-            "msisensor.bootstrapMSIsensor.modules": null
+            "msisensor.bootstrapMSIsensor.modules": null,
+            "msisensor.summarizeBootstrapResults.timeout": null,
+            "msisensor.summarizeBootstrapResults.threads": null,
+            "msisensor.summarizeBootstrapResults.modules": null,
+            "msisensor.summarizeBootstrapResults.jobMemory": null
         },
         "description": "msisensor workflow test",
         "engineArguments": {
@@ -100,7 +104,7 @@
                 ],
                 "type": "ALL"
             },
-            "msisensor.msibooted": {
+            "msisensor.bootstrapMetrics": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
@@ -186,7 +190,11 @@
             "msisensor.runMSIsensor.modules": null,
             "msisensor.bootstrapMSIsensor.threads": null,
             "msisensor.bootstrapMSIsensor.timeout": null,
-            "msisensor.bootstrapMSIsensor.modules": null
+            "msisensor.bootstrapMSIsensor.modules": null,
+            "msisensor.summarizeBootstrapResults.timeout": null,
+            "msisensor.summarizeBootstrapResults.threads": null,
+            "msisensor.summarizeBootstrapResults.modules": null,
+            "msisensor.summarizeBootstrapResults.jobMemory": null
         },
         "description": "msisensor workflow test with bootstrapping",
         "engineArguments": {
@@ -219,7 +227,7 @@
                 ],
                 "type": "ALL"
             },
-            "msisensor.msibooted": {
+            "msisensor.bootstrapMetrics": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"

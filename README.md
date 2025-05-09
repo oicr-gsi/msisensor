@@ -6,7 +6,7 @@ Microsatelite Instability (MSI) detection using msisensor-pro
 
 ## Dependencies
 
-* [msisensorpro 1.2.0](https://github.com/broadinstitute/gatk/releases)
+* [msisensorpro 1.2.0](https://github.com/xjtu-omics/msisensor-pro/releases/tag/v1.2.0)
 
 
 ## Usage
@@ -50,20 +50,23 @@ Parameter|Value|Default|Description
 `bootstrapMSIsensor.threads`|Int|4|Requested CPU threads
 `bootstrapMSIsensor.timeout`|Int|10|Hours before task timeout
 `bootstrapMSIsensor.difficultRegions`|String?|None|bed file of regions to avoid, if necessary
+`summarizeBootstrapResults.modules`|String|"pandas/2.1.3"|modules for summarizeBootstrapResults
+`summarizeBootstrapResults.jobMemory`|Int|64|Memory allocated for this job (GB)
+`summarizeBootstrapResults.threads`|Int|4|Requested CPU threads
+`summarizeBootstrapResults.timeout`|Int|10|Hours before task timeout
 
 
 ### Outputs
 
 Output | Type | Description | Labels
 ---|---|---|---
-`msiGermline`|File|A poorly documented output, ostensibly germline-specific metrics for MSI sites|vidarr_label: msiGermline
-`msiSomatic`|File|A poorly documented output, ostensibly somatic-specific metrics for MSI sites|vidarr_label: msiSomatic
-`msiFinalOutput`|File|Final msisensor call as .tsv, last column is msi score|vidarr_label: msiFinalOutput
-`msibooted`|File?|msisensor calls bootstrapped|vidarr_label: msibooted
+`msiGermline`|File|Describes all microsatelite sites found in the normal bam|vidarr_label: msiGermline
+`msiSomatic`|File|Describes somatic microsatelite sites. A microsatelite is tagged as somatic if the repeat length distribution is found to be different between the tumor and the normal, based on a Pearson's Chi-Squared Test|vidarr_label: msiSomatic
+`msiFinalOutput`|File|Final msisensor call as .tsv, last column is MSI score|vidarr_label: msiFinalOutput
+`bootstrapMetrics`|File?|Percentile values for MSI score after bootstrap|vidarr_label: msiBootstrapMetrics
 
 
 ## Commands
- 
 This section lists command(s) run by msisensor workflow
  
 * Running msisensor
@@ -106,11 +109,49 @@ and a discriminative sites selection method to enable MSI detection without matc
    -t TUMOR_BAM
    -o BASENAME.msi
  
-  awk -v boot="${boot}" '$1 !~ "Total_Number_of_Sites" {print boot"\t"$1"\t"$2"\t"$3}' ~{basename}.msi >> ~{basename}.msi.booted
-  done
+   awk -v boot="${boot}" '$1 !~ "Total_Number_of_Sites" {print boot"\t"$1"\t"$2"\t"$3}' ~{outputFileNamePrefix}.msi >>~{outputFileNamePrefix}.msi.booted
+   done
  
 ```
  
+### Summarize Bootstrap Results
+ 
+```
+   
+     set -euo pipefail
+ 
+     python3 <<CODE
+     import csv
+     import os
+     import numpy
+     import json
+ 
+     msi_boots = []
+     with open("~{msibooted}", 'r') as msi_file:
+         reader_file = csv.reader(msi_file, delimiter="\t")
+         for row in reader_file:
+             msi_boots.append(float(row[3]))
+     
+     # Calculate the percentiles
+     msi_perc = numpy.percentile(numpy.array(msi_boots), [0, 25, 50, 75, 100])
+ 
+     # Convert to JSON
+     percentiles_dict = {
+         "MSI_score_percentiles": {
+             "0": msi_perc[0],
+             "25": msi_perc[1],
+             "50": msi_perc[2],
+             "75": msi_perc[3],
+             "100": msi_perc[4]
+         }
+     }
+     percentiles_json = json.dumps(percentiles_dict, indent=4)
+ 
+     with open("~{outputFileNamePrefix}.msi.bootstrap.metrics.json", 'w') as out_file:
+       out_file.write(percentiles_json)
+ 
+     CODE
+```
 ## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .

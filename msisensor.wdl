@@ -46,14 +46,19 @@ Map[String, GenomeResources] resources = {
   if(boostrapIt == true){
     call bootstrapMSIsensor {
       input:
-	normalbam = normalbam,
-	tumorbam = tumorbam,
-	normalbai = normalbai,
-	tumorbai = tumorbai,
-  msifile = resources[reference].msifile,
-  modules = resources[reference].modules
-   }
-
+        normalbam = normalbam,
+        tumorbam = tumorbam,
+        normalbai = normalbai,
+        tumorbai = tumorbai,
+        msifile = resources[reference].msifile,
+        modules = resources[reference].modules
+    }
+   
+    call summarizeBootstrapResults {
+      input:
+        msibooted = select_first([bootstrapMSIsensor.msibooted]),
+        outputFileNamePrefix = outputFileNamePrefix
+    }
   }
 
   meta {
@@ -62,27 +67,27 @@ Map[String, GenomeResources] resources = {
     description: "Microsatelite Instability (MSI) detection using msisensor-pro"
     dependencies: 
       [
- 	{
+        {
           name: "msisensorpro/1.2.0",
-	  url: "https://github.com/broadinstitute/gatk/releases"
-	}
+          url: "https://github.com/xjtu-omics/msisensor-pro/releases/tag/v1.2.0"
+        }
       ]
     output_meta: {
     msiFinalOutput: {
-        description: "Final msisensor call as .tsv, last column is msi score",
+        description: "Final msisensor call as .tsv, last column is MSI score",
         vidarr_label: "msiFinalOutput"
     },
     msiGermline: {
-        description: "A poorly documented output, ostensibly germline-specific metrics for MSI sites",
+        description: "Describes all microsatelite sites found in the normal bam",
         vidarr_label: "msiGermline"
     },
     msiSomatic: {
-        description: "A poorly documented output, ostensibly somatic-specific metrics for MSI sites",
+        description: "Describes somatic microsatelite sites. A microsatelite is tagged as somatic if the repeat length distribution is found to be different between the tumor and the normal, based on a Pearson's Chi-Squared Test",
         vidarr_label: "msiSomatic"
     },
-    msibooted: {
-        description: "msisensor calls bootstrapped",
-        vidarr_label: "msibooted"
+    bootstrapMetrics: {
+        description: "Percentile values for MSI score after bootstrap",
+        vidarr_label: "msiBootstrapMetrics"
     }
 }
   }
@@ -90,7 +95,7 @@ Map[String, GenomeResources] resources = {
     File msiGermline = runMSIsensor.msiGermline
     File msiSomatic = runMSIsensor.msiSomatic
     File msiFinalOutput = runMSIsensor.msiFinalOutput
-    File? msibooted = bootstrapMSIsensor.msibooted
+    File? bootstrapMetrics = summarizeBootstrapResults.bootstrapMetrics
   }
 }
 
@@ -101,8 +106,8 @@ task runMSIsensor {
     File normalbai 
     File tumorbai 
     String outputFileNamePrefix = basename("~{tumorbam}", ".bam")
-    String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
-    String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
+    String modules
+    String msifile
     String? difficultRegions
     Int jobMemory = 64
     Int threads = 4
@@ -167,8 +172,8 @@ task bootstrapMSIsensor {
     File normalbai 
     File tumorbai 
     String outputFileNamePrefix = basename("~{tumorbam}", ".bam")
-    String modules = "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
-    String msifile = "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list"
+    String modules
+    String msifile
     Int jobMemory = 64
     Int threads = 4
     Int timeout = 10
@@ -229,3 +234,77 @@ task bootstrapMSIsensor {
   }
 }
 
+task summarizeBootstrapResults {
+
+  input {
+    File msibooted
+    String outputFileNamePrefix
+    String modules = "pandas/2.1.3"
+    Int jobMemory = 64
+    Int threads = 4
+    Int timeout = 10
+  }
+
+  parameter_meta {
+    msibooted: "File with bootstrapped results for msisensor, with columns: index, germline microsatelite sites, somatic microsatelite sites, MSI score"
+    outputFileNamePrefix: "output file name prefix"
+    modules: "modules for summarizeBootstrapResults"
+    jobMemory: "Memory allocated for this job (GB)"
+    threads: "Requested CPU threads"
+    timeout: "Hours before task timeout"
+  }
+
+  command <<<
+  
+    set -euo pipefail
+
+    python3 <<CODE
+    import csv
+    import os
+    import numpy
+    import json
+
+    msi_boots = []
+    with open("~{msibooted}", 'r') as msi_file:
+        reader_file = csv.reader(msi_file, delimiter="\t")
+        for row in reader_file:
+            msi_boots.append(float(row[3]))
+    
+    # Calculate the percentiles
+    msi_perc = numpy.percentile(numpy.array(msi_boots), [0, 25, 50, 75, 100])
+
+    # Convert to JSON
+    percentiles_dict = {
+        "MSI_score_percentiles": {
+            "0": msi_perc[0],
+            "25": msi_perc[1],
+            "50": msi_perc[2],
+            "75": msi_perc[3],
+            "100": msi_perc[4]
+        }
+    }
+    percentiles_json = json.dumps(percentiles_dict, indent=4)
+
+    with open("~{outputFileNamePrefix}.msi_bootstrap.metrics.json", 'w') as out_file:
+      out_file.write(percentiles_json)
+
+    CODE
+  >>>
+
+  runtime {
+    modules: "~{modules}"
+    memory:  "~{jobMemory} GB"
+    cpu:     "~{threads}"
+    timeout: "~{timeout}"
+  }
+
+  output {
+    File? bootstrapMetrics = "~{outputFileNamePrefix}.msi_bootstrap.metrics.json"
+  }
+
+  meta {
+    output_meta: {
+      bootstrapMetrics: "Percentile values for MSI score after bootstrap"
+    }
+  }
+}
