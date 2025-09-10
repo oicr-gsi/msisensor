@@ -3,7 +3,7 @@
         "arguments": {
             "msisensor.tumorbai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.0.01.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test01.filter.deduped.realigned.recalibrated.0.01.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -15,7 +15,7 @@
             },
             "msisensor.tumorbam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.0.01.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test01.filter.deduped.realigned.recalibrated.0.01.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -27,7 +27,7 @@
             },
             "msisensor.normalbai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.0.01.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test02.filter.deduped.realigned.recalibrated.0.01.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -39,7 +39,7 @@
             },
             "msisensor.normalbam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.0.01.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test02.filter.deduped.realigned.recalibrated.0.01.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -74,12 +74,12 @@
           "write_to_cache": false,
           "read_from_cache": false
         },
-        "id": "PANX_1248Test",
+        "id": "PANX_Test",
         "metadata": {
             "msisensor.msiFinalOutput": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -87,7 +87,7 @@
             "msisensor.msiGermline": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -95,7 +95,7 @@
             "msisensor.msiSomatic": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -103,7 +103,7 @@
             "msisensor.msibooted": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -113,7 +113,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/PANX_1248Test.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -122,7 +122,7 @@
         "arguments": {
             "msisensor.tumorbai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.0.01.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test01.filter.deduped.realigned.recalibrated.0.01.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -134,7 +134,7 @@
             },
             "msisensor.tumorbam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Lv_M_WG_100-JHU-002_LCM3and4.filter.deduped.realigned.recalibrated.0.01.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test01.filter.deduped.realigned.recalibrated.0.01.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -146,7 +146,7 @@
             },
             "msisensor.normalbai": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.0.01.bam.bai",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test02.filter.deduped.realigned.recalibrated.0.01.bam.bai",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -158,7 +158,7 @@
             },
             "msisensor.normalbam": {
                 "contents": {
-                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/1.0/input_data/PANX_1248_Ly_R_WG_100-JHU-002_BC.filter.deduped.realigned.recalibrated.0.01.bam",
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test02.filter.deduped.realigned.recalibrated.0.01.bam",
                     "externalIds": [
                         {
                             "id": "TEST",
@@ -193,12 +193,12 @@
           "write_to_cache": false,
           "read_from_cache": false
         },
-        "id": "PANX_1248_BootstrapTest",
+        "id": "PANX_BootstrapTest",
         "metadata": {
             "msisensor.msiFinalOutput": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -206,7 +206,7 @@
             "msisensor.msiGermline": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -214,7 +214,7 @@
             "msisensor.msiSomatic": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -222,7 +222,7 @@
             "msisensor.msibooted": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_1248Test_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -232,7 +232,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/PANX_1248_BootsrapTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/workflow_test_02.metrics",
                 "type": "script"
             }
         ]
