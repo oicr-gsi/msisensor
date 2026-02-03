@@ -312,7 +312,7 @@
           "write_to_cache": false,
           "read_from_cache": false
         },
-        "id": "PANX_Test",
+        "id": "PANX_Test_noAlt",
         "metadata": {
             "msisensor.msiFinalOutput": {
                 "contents": [
