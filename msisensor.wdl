@@ -21,6 +21,10 @@ Map[String, GenomeResources] resources = {
     "msifile": "$MSISENSOR_MICROSATLIST_ROOT/hg38_random.fa.list", 
     "modules": "msisensorpro/1.2.0 msisensor-microsatlist/hg38p12"
   }
+  "hg38_noAlt": {
+    "msifile": "$MSISENSOR_MICROSATLIST_ROOT/hg38_noAlt.fa.list", 
+    "modules": "msisensorpro/1.2.0 msisensor-microsatlist/hg38-noaltp12"
+  }
 }
 
   parameter_meta {
