@@ -113,7 +113,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.4.0/output_metrics/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -232,7 +232,126 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.0/output_metrics/workflow_test_02.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.4.0/output_metrics/workflow_test_02.metrics",
+                "type": "script"
+            }
+        ]
+    },
+    {
+        "arguments": {
+            "msisensor.tumorbai": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test01.filter.deduped.realigned.recalibrated.0.01.bam.bai",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
+            "msisensor.tumorbam": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test01.filter.deduped.realigned.recalibrated.0.01.bam",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
+            "msisensor.normalbai": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test02.filter.deduped.realigned.recalibrated.0.01.bam.bai",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
+            "msisensor.normalbam": {
+                "contents": {
+                    "configuration": "/.mounts/labs/gsi/testdata/msisensor/test_inputs/PANX_Test02.filter.deduped.realigned.recalibrated.0.01.bam",
+                    "externalIds": [
+                        {
+                            "id": "TEST",
+                            "provider": "TEST"
+                        }
+                    ]
+                },
+                "type": "EXTERNAL"
+            },
+            "msisensor.boostrapIt": false,
+            "msisensor.reference": "hg38_noAlt",
+            "msisensor.outputFileNamePrefix": null,
+            "msisensor.bootstrapMSIsensor.loci": null,
+            "msisensor.bootstrapMSIsensor.jobMemory": null,
+            "msisensor.bootstrapMSIsensor.outputFileNamePrefix": null,
+            "msisensor.runMSIsensor.outputFileNamePrefix": null,
+            "msisensor.bootstrapMSIsensor.difficultRegions": null,
+            "msisensor.runMSIsensor.difficultRegions": null,
+            "msisensor.bootstrapMSIsensor.msifile": null,
+            "msisensor.runMSIsensor.jobMemory": null,
+            "msisensor.bootstrapMSIsensor.boots": null,
+            "msisensor.runMSIsensor.threads": null,
+            "msisensor.runMSIsensor.msifile": null,
+            "msisensor.runMSIsensor.timeout": null,
+            "msisensor.runMSIsensor.modules": null,
+            "msisensor.bootstrapMSIsensor.threads": null,
+            "msisensor.bootstrapMSIsensor.timeout": null,
+            "msisensor.bootstrapMSIsensor.modules": null
+        },
+        "description": "msisensor workflow test with noAlt reference",
+        "engineArguments": {
+          "write_to_cache": false,
+          "read_from_cache": false
+        },
+        "id": "PANX_Test_noAlt",
+        "metadata": {
+            "msisensor.msiFinalOutput": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msiGermline": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msiSomatic": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "msisensor.msibooted": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_msisensor_PANX_Test_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            }
+        },
+        "validators": [
+            {
+                "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
+                "metrics_compare": "@CHECKOUT@/tests/compare.sh",
+                "output_metrics": "/.mounts/labs/gsi/testdata/msisensor/1.4.0/output_metrics/workflow_test_03.metrics",
                 "type": "script"
             }
         ]
